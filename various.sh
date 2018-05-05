@@ -34,10 +34,62 @@ echo "${BLUE}Que souhaitez-vous installer :${WHITE}"
 echo "${WHITE}1 - Serveur TeamSpeak 3"
 echo "${WHITE}2 - Serveur Minecraft"
 echo "${WHITE}3 - Serveur Web"
-echo "${WHITE}4 - Rien (quitter)"
+echo "${WHITE}4 - Autre..."
+echo "${WHITE}X - Rien (quitter)"
 read repC
 
 if [ $repC = "4" ]; then
+    clear
+    echo "${BLUE}Que souhaitez-vous installer :${WHITE}"
+    echo "${WHITE}1 - PhpMyAdmin"
+    echo "${WHITE}2 - Java 8"
+    echo "${WHITE}X - Rien (quitter)"
+    read repB
+    if [ $repB = "1" ]; then
+        echo "${RED}Installation de PhpMyAdmin...${WHITE}"
+        sleep 3
+        apt-get install phpmyadmin
+        ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+        apt-get install php5-mysql
+        service apache2 restart
+        sleep 3
+        echo "${BLUE}Mise à jour des packets${WHITE}"
+        apt-get update
+        apt-get upgrade
+        echo "${BLUE}Installation de PhpMyAdmin terminée !${WHITE}"
+        echo "${WHITE}PhpMyAdmin disponible à : ${BLUE}http://$ip/phpmyadmin${WHITE}"
+    fi
+
+    if [ $repB = "2" ]; then
+        clear
+        sleep 3
+        echo "${BLUE}Mise à jour des packets${WHITE}"
+        sleep 2
+        apt-get update
+        apt-get upgrade
+        echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee /etc/apt/sources.list.d/webupd8team-java.list
+        echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
+        apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+        sleep 3
+        echo "${BLUE}Mise à jour des packets${WHITE}"
+        sleep 2
+        apt-get update
+        apt-get upgrade
+        echo "${BLUE}Installation de Java 8...${WHITE}"
+        sleep 1
+        apt-get install oracle-java8-installer
+        echo "${WHITE}Installation de Java 8 terminée !${WHITE}"
+
+    fi
+
+    if [ $repB = "X" ]; then
+        echo "${RED}Ok ! A la prochaine !${WHITE}"
+        sleep 2
+        exit
+    fi
+fi
+
+if [ $repC = "X" ]; then
     echo "${RED}Ok ! A la prochaine !${WHITE}"
     sleep 2
     exit
@@ -107,7 +159,7 @@ if [ $repC = "2" ]; then
     touch eula.txt
     echo "eula=true" >> eula.txt
     touch start.sh
-    echo "java -jar spigot.jar" >> start.sh
+    echo "java -Xms512M -jar spigot.jar" >> start.sh
     chmod +x start.sh
     sleep 3
     echo "${BLUE}Mise à jour des packets${WHITE}"

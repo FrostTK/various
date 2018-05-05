@@ -104,4 +104,3 @@ if [ $repC = "2" ]; then
     sleep 2
     ./start.sh
 fi
-

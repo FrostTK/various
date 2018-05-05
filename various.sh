@@ -107,7 +107,7 @@ if [ $repC = "2" ]; then
     touch eula.txt
     echo "eula=true" >> eula.txt
     touch start.sh
-    echo "java -Xms512M -jar spigot.jar" >> start.sh
+    echo "java -jar spigot.jar" >> start.sh
     chmod +x start.sh
     sleep 3
     echo "${BLUE}Mise à jour des packets${WHITE}"

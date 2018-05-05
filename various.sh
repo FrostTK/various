@@ -56,6 +56,10 @@ if [ $repC = "1" ]; then
     sleep 1
     echo "${WHITE}Redirection vers le dossier créé."
     cd teamspeak3-server/
+    sleep 3
+    echo "${BLUE}Mise à jour des packets${WHITE}"
+    apt-get update
+    apt-get upgrade
     echo "${RED}Démarrage du serveur, copiez bien ce qui va vous être affiché !${WHITE}"
     echo "${RED}Ca ne sera affiché qu'une seule fois !${WHITE}"
     sleep 5
@@ -77,6 +81,11 @@ if [ $repC = "3" ]; then
     ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
     apt-get install php5-mysql
     service apache2 restart
+    sleep 3
+    echo "${BLUE}Mise à jour des packets${WHITE}"
+    apt-get update
+    apt-get upgrade
+    clear
     echo "${WHITE}Site web disponible à : ${BLUE}http://$ip/${WHITE}"
     echo "${WHITE}PhpMyAdmin disponible à : ${BLUE}http://$ip/phpmyadmin${WHITE}"
 fi
@@ -100,6 +109,10 @@ if [ $repC = "2" ]; then
     touch start.sh
     echo "java -Xms512M -jar spigot.jar" >> start.sh
     chmod +x start.sh
+    sleep 3
+    echo "${BLUE}Mise à jour des packets${WHITE}"
+    apt-get update
+    apt-get upgrade
     echo "${GREEN}Démarrage du serveur Minecraft...${WHITE}"
     sleep 2
     ./start.sh
